@@ -9,10 +9,9 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = render 'layouts/shim'
   body
-    .jumbotron-fluid
-      .container-fluid
-        = render 'layouts/header'
-        = yield
-        / TODO : alert message
-        = render 'layouts/footer'
-        / TODO : debug message
+    .container-fluid
+      = render 'layouts/header'
+      = yield
+      / TODO : alert message
+      = render 'layouts/footer'
+      / TODO : debug message

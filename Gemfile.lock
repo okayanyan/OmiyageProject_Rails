@@ -282,7 +282,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   coffee-rails (~> 4.2)
-  factory_bot_rails
+  factory_bot_rails (~> 5.1)
   html2slim (~> 0.2)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
@@ -290,7 +290,7 @@ DEPENDENCIES
   mysql2
   puma (~> 3.11)
   rails (~> 5.2.3)
-  rails_autolink
+  rails_autolink (~> 1.1)
   rspec-rails (~> 3.9)
   sass-rails (~> 5.0)
   selenium-webdriver

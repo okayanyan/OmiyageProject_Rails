@@ -3,15 +3,15 @@ require 'rails_helper'
 describe User do
 
   describe 'save user.' do
-    let(:correct_user) {User.New(name: "user", email: "user@example.com",
+    let(:correct_user) {User.new(name: "user", email: "user@example.com",
                         password: "password", password_confirmation: "password")}
                         
-    shared_example_for 'valid user.' do
-      if { expect(user.valid?).to be_truthy }
+    shared_examples_for 'valid user.' do
+      it { expect(user.valid?).to be_truthy }
     end
   
-    shared_example_for 'invalid user.' do
-      if { expect(user.valid?).to be_falsey }
+    shared_examples_for 'invalid user.' do
+      it { expect(user.valid?).to be_falsey }
     end
                         
     context 'name is empty,' do

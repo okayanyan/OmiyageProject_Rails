@@ -1,0 +1,27 @@
+.container-fluid
+  .row.justify-content-center.mx-0
+    h3 アカウントの作成
+  br
+  .row.justify-content-center.mx-0
+    = form_for( @user) do |f| 
+      = render 'shared/error_messages', object: f.object
+      table
+        tr
+          td = f.label :name
+          td = f.text_field :name, class: 'form-control'
+        tr
+          td = f.label :email
+          td = f.email_field :email, class: 'form-control'
+        tr
+          td = f.label :Password
+          td = f.password_field :password, class: 'form-control'
+        tr
+          td = f.label :password_confirmation, "Password(confirmation)"
+          td = f.password_field :password_confirmation, class: 'form-control'
+        tr
+          td
+          td = f.submit 'アカウントを作成する', class: 'btn btn-outline-primary btn-sm', \
+                  id: 'commit_button'
+  br 
+  .row.justify-content-center.mx-0
+    = link_to  "ログインはこちら", "#" 

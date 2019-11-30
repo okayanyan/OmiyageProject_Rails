@@ -1,0 +1,9 @@
+- if has_error_info?
+  - error_objects = get_error_info
+  #error_explanation
+    .alert.alert-danger
+      p 
+        | 入力されたフォームには、#{error_objects.count}個のエラーがあります。
+    ul
+      - error_objects.each do |msg|
+        li = msg

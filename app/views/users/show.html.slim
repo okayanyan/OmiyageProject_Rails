@@ -1,0 +1,24 @@
+.container-fluid
+  .row.justify-content-center.mx-0
+    h3 アカウント情報
+  br
+  .row.justify-content-center.mx-0
+    aside.col-md-4
+      section    
+        p ユーザーの画像
+      section
+        p フォロー・フォロワー情報
+
+    .col-md-8
+      table
+        tr
+          td ユーザー名
+          td = @user.name
+        tr
+          td メールアドレス
+          td = @user.email
+  br
+  .row.justify-content-center.mx-0
+    = link_to "アカウント情報を編集する", "#",  class: "btn btn-outline-primary btn-sm"
+    = link_to "パスワードをリセットする", "#", class: "btn btn-outline-primary btn-sm"
+    = link_to "アカウントを削除する", "#", class: "btn btn-outline-primary btn-sm"

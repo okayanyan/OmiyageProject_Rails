@@ -1,12 +1,12 @@
 header.navbar.fixed-top.navbar-inverse.navbar-light.bg-primary.py-0
   .container-fluid
-    h1#logo.text-white = link_to "みやログ", "#", class: "nav-link text-white"
+    h1#logo.text-white = link_to "みやログ", root_path, class: "nav-link text-white"
     nav
       /ul.nav.navbar-nav.navbar-right.flex-sm-row
       ul.nav.navbar-nav.navbar-right.flex-sm-row
-        li.nav-item.ml-3 = link_to "このサイトについて", "#", class: "nav-link text-white"
+        li.nav-item.ml-3 = link_to "このサイトについて", about_path, class: "nav-link text-white"
         li.nav-item.ml-3 = link_to "問い合わせ", "#", class: "nav-link text-white"
-        li.nav-item.ml-3 = link_to "アカウント作成", "#", class: "nav-link text-white"
+        li.nav-item.ml-3 = link_to "アカウント作成", new_user_path, class: "nav-link text-white"
         li.nav-item.ml-3 = link_to "ログイン", "#", class: "nav-link text-white"
         /
           li.dropdown

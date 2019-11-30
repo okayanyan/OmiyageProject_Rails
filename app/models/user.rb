@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }
   has_secure_password
-  validates :password, presence: true, length: {maximum: 20}
+  validates :password, presence: true, length: {maximum: 20}, allow_nil: true
 
   private
     def downcase_email

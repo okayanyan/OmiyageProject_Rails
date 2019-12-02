@@ -20,8 +20,8 @@
   .row.justify-content-center.mx-0
     = form_for(:session, url: login_path) do |f|
       table
-        = f.hidden_field :email, value: 'test@test.com'
-        = f.hidden_field :password, value: 'password'
+        = f.hidden_field :email, value: 'test1@test.com'
+        = f.hidden_field :password, value: 'test'
         tr
           td
           td = f.submit 'テストユーザーでログイン', class: 'btn btn-outline-primary btn-sm', \

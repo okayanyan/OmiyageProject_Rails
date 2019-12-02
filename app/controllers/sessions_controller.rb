@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :check_logged_in, only:[:destroy]
+  before_action :check_correct_user, only:[:destroy]
 
   # function
   #   ・describe login form
@@ -16,19 +18,24 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     # check existance of user and password authentication.
     if user && user.authenticate(params[:session][:password])
-      # ログイン成功
+      flash[:success] = "ログインに成功しました。"
+      # save session
       log_in(user)
       redirect_to user
     else
-      # describe message and redirect to login form.
       flash[:danger] = 'emailまたはpasswordが間違っています。'
       redirect_to login_path
     end
   end
 
-  # logout operation
+  # function
+  #   ・logout operation
+  # used
+  #   ・logout
   def destroy
-
+    flash[:success] = "ログアウトしました。"
+    log_out
+    redirect_to root_path
   end
 
 end

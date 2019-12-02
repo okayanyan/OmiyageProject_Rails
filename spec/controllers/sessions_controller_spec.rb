@@ -42,12 +42,21 @@ RSpec.describe SessionsController, type: :controller do
         # login
         post :create, params: {session: 
                                 {email: user.email, password: user.password}}
+        delete :destroy
       end
 
       context 'logout' do
         it 'delete_session_and_redirect_root_page' do
-          #delete :destroy
-          #expect(response).to redirect_to root_path
+          expect(response).to redirect_to root_path
+        end
+      end
+
+      context 'logout in other browser tab' do
+        before do
+          delete :destroy
+        end
+        it 'redirect_to_root' do
+          expect(response).to redirect_to root_path
         end
       end
     end

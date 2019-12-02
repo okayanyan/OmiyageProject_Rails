@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :check_logged_in, only:[:edit, :update, :destroy]
+  before_action :check_correct_user, only:[:edit, :update, :destroy]
 
   # function
   #   ・describe user page
@@ -28,7 +30,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # success
       flash[:success] = "ユーザーが作成されました。"
       #   save in session 
       log_in @user

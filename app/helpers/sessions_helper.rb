@@ -10,6 +10,15 @@ module SessionsHelper
   end
 
   # function
+  #   judge login or not
+  # used
+  #   ・change templates if logged in or not.
+  #      ・For example, login link.
+  def logged_in?
+    !current_user.nil?
+  end
+
+  # function
   #   ・get login user
   # used
   #   ・change templates if logged in or not.
@@ -20,21 +29,34 @@ module SessionsHelper
     end
   end
 
-  # function
-  #   judge login or not
-  # used
-  #   ・change templates if logged in or not.
-  #      ・For example, login link.
-  def logged_in?
-    !current_user.nil?
+  def current_user?(user)
+    user == current_user
   end
 
   # function
   #   ・logout
   # used
   #   ・delete login user info by session.
-  #def log_out
-  #  session.delete(:login_user_id)
-  #  @current_user = nil
-  #end
+  def log_out
+    session.delete(:login_user_id)
+    @current_user = nil
+  end
+
+  # function
+  #   ・login check
+  # used
+  #   ・prevent to manipulate invalid operration
+  def check_logged_in
+    redirect_to root_path unless logged_in?
+  end
+
+  # function
+  #   ・login check
+  # used
+  #   ・prevent to manipulate invalid operration
+  def check_correct_user
+    user = User.find_by(params[:login_user_id])
+    redirect_to root_url unless current_user?(user)
+  end
+
 end

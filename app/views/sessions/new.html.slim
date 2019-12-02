@@ -1,0 +1,30 @@
+.container
+  .row.justify-content-center.mx-0
+    h3 ログイン
+  br
+  .row.justify-content-center.mx-0
+    = form_for(:session, url: login_path) do |f| 
+      = render 'shared/error_messages'
+      table
+        tr
+          td = f.label :email
+          td = f.email_field :email, class: 'form-control'
+        tr
+          td = f.label :Password
+          td = f.password_field :password, class: 'form-control'
+        tr
+          td
+          td = f.submit 'ログイン', class: 'btn btn-outline-primary btn-sm', \
+                  id: 'commit_button'
+  br
+  .row.justify-content-center.mx-0
+    = form_for(:session, url: login_path) do |f|
+      table
+        = f.hidden_field :email, value: 'test@test.com'
+        = f.hidden_field :password, value: 'password'
+        tr
+          td
+          td = f.submit 'テストユーザーでログイン', class: 'btn btn-outline-primary btn-sm', \
+                  id: 'test_user_commit_button'
+  
+br

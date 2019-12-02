@@ -1,20 +1,20 @@
-header.navbar.fixed-top.navbar-inverse.navbar-light.bg-primary.py-0
+header.navbar.fixed-top.navbar-inverse.bg-primary.py-0
   .container-fluid
-    h1#logo.text-white = link_to "みやログ", root_path, class: "nav-link text-white"
+    h1.text-white#logo = link_to "みやログ", root_path, class: "nav-link text-white"
     nav
-      /ul.nav.navbar-nav.navbar-right.flex-sm-row
       ul.nav.navbar-nav.navbar-right.flex-sm-row
-        li.nav-item.ml-3 = link_to "このサイトについて", about_path, class: "nav-link text-white"
-        li.nav-item.ml-3 = link_to "問い合わせ", "#", class: "nav-link text-white"
-        li.nav-item.ml-3 = link_to "アカウント作成", new_user_path, class: "nav-link text-white"
-        li.nav-item.ml-3 = link_to "ログイン", "#", class: "nav-link text-white"
-        /
-          li.dropdown
-            = link_to "アカウント", "#", class: "dropdown-toggle", data-toggle: "dropdown"
-              b.caret  
-            ul.dropdown-menu
-              li = link_to "プロフィール", "#"
-              li = link_to "投稿", "#"
-              li = link_to "お気に入り投稿", "#"
-              li = link_to "ログアウト", "#"
-        
+        li.nav-item.ml-3 = link_to "このサイトについて", about_path, class: "text-white"
+        li.nav-item.ml-3 = link_to "問い合わせ", "#", class: "text-white"
+        li.nav-item.ml-3.dropdown
+          = link_to "#", 'data-toggle'=>"dropdown", class: "dropdown-toggle text-white"
+            | アカウントサービス
+          ul.dropdown-menu.bg-info.border-white.position-absolute#dropdown
+            - if logged_in?
+              li.dropdown-items.mx-1 = link_to "プロフィール", user_path(current_user), class: "text-white"
+              li.dropdown-items.mx-1 = link_to "投稿", "#", class: "text-white"
+              li.dropdown-items.mx-1 = link_to "お気に入り投稿リスト", "#", class: "text-white"
+              li.dropdown-items.mx-1 = link_to "お気に入り投稿者リスト", "#", class: "text-white"
+              li.dropdown-items.mx-1 = link_to "ログアウト", logout_path, method: :delete, class: "text-white"
+            - else
+              li.dropdown-items.mx-1 = link_to "アカウント作成", new_user_path, class: "text-white"
+              li.dropdown-items.mx-1 = link_to "ログイン", login_path, class: "text-white"

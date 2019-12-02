@@ -1,6 +1,14 @@
+/* application */
 body {
   font-family:　"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", 
                 "メイリオ", "Meiryo, Osaka", "ＭＳ Ｐゴシック", 
                 "MS PGothic", sans-serif;
   padding-top: 130px;
+}
+
+/* header */
+#dropdown {
+  li {
+    font-size: 14px;
+  }
 }

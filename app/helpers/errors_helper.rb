@@ -1,4 +1,9 @@
 module ErrorsHelper
+  
+  # function
+  #   ・save argument error messages by session
+  # used
+  #   ・save message to render
   def set_error_info(object)
     if object.errors.any?
       arr = []
@@ -9,6 +14,10 @@ module ErrorsHelper
     end
   end
 
+  # function
+  #   ・get argument error messages by session
+  # used
+  #   ・describe message to render
   def get_error_info
     if session[:error_info]
       error_info = session[:error_info]
@@ -17,6 +26,10 @@ module ErrorsHelper
     end
   end
 
+  # function
+  #   ・judge existance of error messages by session
+  # used
+  #   ・describe message to render
   def has_error_info?
     !(session[:error_info].nil?)
   end

@@ -7,6 +7,7 @@ module SessionsHelper
   #   ・prepare for test.
   def log_in(user)
     session[:login_user_id] = user.id
+    set_user_info_in_cookie(user)
   end
 
   # function
@@ -24,8 +25,14 @@ module SessionsHelper
   #   ・change templates if logged in or not.
   #      ・For example, button to delete posts.
   def current_user
-    if session[:login_user_id]
+    if (user_id = session[:login_user_id])
       @current_user ||= User.find_by(id: session[:login_user_id])
+    elsif (user_id = cookies.signed[:login_user_id])
+      user = User.find_by(id: user_id)
+      if user && user.authenticated?(cookies[:remember_token])
+        log_in user
+        @current_user = user
+      end
     end
   end
 
@@ -39,6 +46,7 @@ module SessionsHelper
   #   ・delete login user info by session.
   def log_out
     session.delete(:login_user_id)
+    delete_user_info_in_cookie(@current_user)
     @current_user = nil
   end
 
@@ -57,6 +65,26 @@ module SessionsHelper
   def check_correct_user
     user = User.find_by(params[:login_user_id])
     redirect_to root_url unless current_user?(user)
+  end
+
+  # function
+  #   ・login setting
+  # used
+  #   ・prevent to manipulate invalid operration
+  def set_user_info_in_cookie(user)
+    user.remember_in_db
+    cookies.permanent.signed[:login_user_id] = user.id
+    cookies.permanent.signed[:remember_token] = user.remember_token
+  end
+
+  # function
+  #   ・ logout setting
+  # used
+  #   ・prevent to manipulate invalid operration
+  def delete_user_info_in_cookie(user)
+    user.forget_in_db
+    cookies.delete(:login_user_id)
+    cookies.delete(:remember_token)
   end
 
 end

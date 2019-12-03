@@ -29,6 +29,7 @@ class UsersController < ApplicationController
   #   ・create user
   def create
     @user = User.new(user_params)
+    set_image_key
     if @user.save
       flash[:success] = "ユーザーが作成されました。"
       #   save in session 
@@ -41,6 +42,32 @@ class UsersController < ApplicationController
     end
   end
 
+  # function
+  #   ・describe user edit form
+  # used
+  #   ・update user information
+  def edit
+    @user = User.find_by(params[:id])
+    if has_create_user_info?
+      get_create_user_info
+    end
+  end
+
+  def update
+    @user = User.find_by(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "更新が成功しました。"
+      redirect_to @user
+    else
+      set_error_info(@user)
+      redirect_to edit_user_path(@user)
+    end
+  end
+
+  def destroy
+
+  end
+
   private
     # function
     #   ・function to limit post parameter 
@@ -48,6 +75,20 @@ class UsersController < ApplicationController
     #   ・prevent malicious request
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    # function
+    #   ・function to save image key
+    # used
+    #   ・profile image
+    def set_image_key(key=nil)
+      if key
+        # TODO
+        #   アップロード処理を後で実装
+      else
+        @user.image_key = "static/Miyalog/image/image_thumbnail_person.jpeg"
+      end
+
     end
 
     # function

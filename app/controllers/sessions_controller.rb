@@ -1,6 +1,4 @@
 class SessionsController < ApplicationController
-  before_action :check_logged_in, only:[:destroy]
-  before_action :check_correct_user, only:[:destroy]
 
   # function
   #   ・describe login form
@@ -33,8 +31,10 @@ class SessionsController < ApplicationController
   # used
   #   ・logout
   def destroy
-    flash[:success] = "ログアウトしました。"
-    log_out
+    if logged_in?
+      flash[:success] = "ログアウトしました。"
+      log_out
+    end
     redirect_to root_path
   end
 

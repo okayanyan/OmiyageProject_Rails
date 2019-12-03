@@ -12,13 +12,12 @@ describe 'Session', type: :feature do
     end
 
     context 'login_by_invalid_information' do
-      before do
+      it 'redirect_login_form_and_describe_error_messages' do
         # post by invalid information
         fill_in 'session_email', with: ''
         fill_in 'session_password', with: ''
         click_button 'commit_button'
-      end
-      it 'redirect_login_form_and_describe_error_messages' do
+
         expect(current_path).to eq login_path
         expect(page).to have_selector('.alert')
         expect(page).to have_link 'ログイン'
@@ -27,13 +26,12 @@ describe 'Session', type: :feature do
     end
 
     context 'login_by_valid_information' do
-      before do
+      it 'redirect_to_user_page' do
         # post by valid messages
         fill_in 'session_email', with: user.email
         fill_in 'session_password', with: user.password
         click_button 'commit_button'
-      end
-      it 'redirect_to_user_page' do
+
         expect(current_path).to eq user_path(user)
         expect(page).to have_content user.name
         expect(page).not_to have_link 'ログイン'
@@ -54,10 +52,9 @@ describe 'Session', type: :feature do
 
     describe 'execute_logout' do
       context 'logout' do
-        before do
-          click_link 'ログアウト'
-        end
         it 'delete_sessions_and_redirect_to_root_page' do
+          click_link 'ログアウト'
+
           expect(current_path).to eq root_path
           expect(page).to have_link 'ログイン'
           expect(page).not_to have_link 'ログアウト'

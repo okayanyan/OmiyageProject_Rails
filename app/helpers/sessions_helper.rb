@@ -45,8 +45,8 @@ module SessionsHelper
   # used
   #   ・delete login user info by session.
   def log_out
+    delete_user_info_in_cookie(current_user)
     session.delete(:login_user_id)
-    delete_user_info_in_cookie(@current_user)
     @current_user = nil
   end
 
@@ -55,7 +55,10 @@ module SessionsHelper
   # used
   #   ・prevent to manipulate invalid operration
   def check_logged_in
-    redirect_to root_path unless logged_in?
+    if !logged_in?
+      flash[:danger] = "ログインしてください。"
+      redirect_to login_path
+    end
   end
 
   # function
@@ -63,8 +66,11 @@ module SessionsHelper
   # used
   #   ・prevent to manipulate invalid operration
   def check_correct_user
-    user = User.find_by(params[:login_user_id])
-    redirect_to root_url unless current_user?(user)
+    user = User.find_by(params[:id])
+    if !current_user?(user)
+      flash[:danger] = "ユーザーが違います。"
+      redirect_to root_path
+    end
   end
 
   # function

@@ -19,7 +19,7 @@ describe 'Session', type: :feature do
         click_button 'commit_button'
 
         expect(current_path).to eq login_path
-        expect(page).to have_selector('.alert')
+        expect(page).to have_css '.alert-danger'
         expect(page).to have_link 'ログイン'
         expect(page).not_to have_link 'ログアウト'
       end
@@ -34,6 +34,7 @@ describe 'Session', type: :feature do
 
         expect(current_path).to eq user_path(user)
         expect(page).to have_content user.name
+        expect(page).to have_content "ログインに成功しました。"
         expect(page).not_to have_link 'ログイン'
         expect(page).to have_link 'ログアウト'
       end
@@ -56,6 +57,7 @@ describe 'Session', type: :feature do
           click_link 'ログアウト'
 
           expect(current_path).to eq root_path
+          expect(page).to have_content "ログアウトしました。"
           expect(page).to have_link 'ログイン'
           expect(page).not_to have_link 'ログアウト'
         end

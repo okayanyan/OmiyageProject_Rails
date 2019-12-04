@@ -32,7 +32,7 @@ describe 'Sign up', type: :feature do
         user = User.find_by(email: "test@test.com")
         expect(current_path).to eq user_path(user)
         expect(page).to have_content user.name
-        
+        expect(page).to have_content "ユーザーが作成されました。"
       end
     end
   end

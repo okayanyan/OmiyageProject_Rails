@@ -40,6 +40,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'slim-rails', '~> 3.2'
 gem 'html2slim', '~> 0.2'
 gem 'rails_autolink', '~> 1.1'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 # Use boostrp
 gem 'bootstrap', '~> 4.3'

@@ -21,4 +21,5 @@
     = link_to "アカウント情報を編集する", edit_user_path(current_user), class: "btn btn-outline-primary btn-sm", id: "edit_user_link"
   br
   .row.justify-content-center.mx-0
-    = link_to "アカウントを削除する", user_path(current_user), method: :delete, class: "btn btn-outline-primary btn-sm", id: "delete_user_link"
+    = link_to "アカウントを削除する", user_path(current_user), method: :delete, class: "btn btn-outline-primary btn-sm",
+         id: "delete_user_link", data: { confirm: "アカウントを削除してもよろしいですか？?" }

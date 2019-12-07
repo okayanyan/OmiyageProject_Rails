@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_03_072405) do
+ActiveRecord::Schema.define(version: 2019_12_04_031756) do
+
+  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title"
+    t.string "image_key"
+    t.bigint "prefecture_id"
+    t.integer "evaluation"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prefecture_id"], name: "index_posts_on_prefecture_id"
+    t.index ["user_id", "prefecture_id", "created_at"], name: "index_posts_on_user_id_and_prefecture_id_and_created_at"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "prefectures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", limit: 20
@@ -22,4 +42,6 @@ ActiveRecord::Schema.define(version: 2019_12_03_072405) do
     t.string "image_key"
   end
 
+  add_foreign_key "posts", "prefectures"
+  add_foreign_key "posts", "users"
 end

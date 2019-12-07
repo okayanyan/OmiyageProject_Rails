@@ -1,0 +1,56 @@
+.container
+  .row.justify-content-center
+    h2 = "#{@post.title}(#{@post.prefecture_name})"
+  .row.justify-content-end.mr-1
+    p = "投稿者　：　#{@post.user_name}(○人登録)"
+  .row.justify-content-end.mr-1
+    p = "投稿日時　：　#{@post.created_at.strftime("%Y/%m/%d/ %H:%M")}"
+  
+  / 編集ボタン
+  /= if @post.user = current_user
+  .row.justify-content-end.mr-1
+    = link_to "投稿を編集する",  post_path(@post), class:"btn btn-outline-primary btn-sm"
+  / 削除ボタン
+  .row.justify-content-end.mr-1
+    = link_to "投稿を削除する",  post_path(@post), method: :delete,class:"btn btn-outline-primary btn-sm", \
+        data: {confirm: "削除しますか？"}
+  
+  .row.justify-content-center
+    = image_tag "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{@post.image_key}", alt: "#{@post.title}の画像", title: "#{@post.title}",  class: "img-thumbnail" 
+  
+  .star.row.justify-content-center.m-1
+    - 5.times do |s|
+      - if @post.evaluation >= (s+1)
+        .star_on ★
+      - else
+        .star_off ★
+    - @favorite_count = 1
+    = "（お気に入り#{@favorite_count}件）"
+  .row.justify-content-center
+    p = @post.content
+  br
+  / お気に入り追加ボタン
+  .row.justify-content-center
+    - if !current_user.nil?
+      br
+      br
+    / お気に入り登録されているか
+    - elsif true
+      = link_to "お気に入り投稿を解除する", "#", method: :delete, class:"btn btn-outline-primary btn-sm" 
+    - else
+      = link_to "お気に入り投稿に登録する", "#", class:"btn btn-outline-primary btn-sm"
+  br
+  / お気に入り追加ボタン
+  .row.justify-content-center
+    - if current_user != @user
+      br
+      br
+    / お気に入り登録されているか
+    - elsif true
+      = link_to "お気に入り投稿者を解除する", "#", method: :delete, class:"btn btn-outline-primary btn-sm" 
+    - else
+      = link_to "お気に入り投稿者に登録する", "#", class:"btn btn-outline-primary btn-sm"
+    
+
+
+

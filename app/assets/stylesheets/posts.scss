@@ -1,0 +1,46 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+/* for about in index */
+#about {
+  background: no-repeat center url(../image/about.jpeg);
+  background-size: cover;
+  height: 300px;
+  color: #FFF;
+}
+
+#about p {
+  font-size: 16px;
+}
+
+/* for post image */
+#thumbnail img {
+    width: 500px;
+    height: 500px;
+}
+
+/* for review star */
+.star {
+	text-align: center;
+	font-size: 25px;
+}
+
+.star_post:hover {
+	cursor: pointer;
+}
+.star_on {
+	color: yellow;
+}
+.star_off {
+	color: gray;
+}
+
+/* for psot detail */
+#detail p {
+    word-wrap: break-word;
+}
+
+
+/* microposts */

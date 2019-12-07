@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe User do
 
-  describe 'save user.' do
-    let(:correct_user) {User.new(name: "user", email: "user@example.com",
+  let(:correct_user) {User.new(name: "user", email: "user@example.com",
                         password: "password", password_confirmation: "password")}
-                        
+
+  describe 'save user.' do
+        
     shared_examples_for 'valid user.' do
       it { expect(user.valid?).to be_truthy }
     end
@@ -71,5 +72,16 @@ describe User do
     end
   end
 
+  describe 'delete_user' do
+    let(:post) {correct_user.post.new(title: 'test', image_key: nil, 
+                  prefecture_id: 1, evaluation: 1, content: 'test_content')}
+    before do
+      correct_user.destroy
+    end
+    # ユーザーを削除すると、投稿も消える
+    it 'deleted_user_and_post' do
+      expect(Post.where(id: post.id).count).to eq 0
+    end
+  end
 
 end

@@ -1,0 +1,22 @@
+.container-fluid
+  .row.justify-content-center.mx-0
+    h3 投稿一覧
+  br
+  = will_paginate @post, :previous_label => ' &lt 前へ ', :next_label => ' 次へ &gt ', \
+      'aria-label': "Page navigation", class: "justify-content-center"
+  - @post.each do |p|
+    .row.justify-content-center.mx-0
+      .border.rounded-lg.m-4#thumbnail
+        h3.text-center.m-1
+          = link_to p.title,  post_path(p), class: ""
+        = image_tag  "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{p.image_key}", alt: "#{p.title}の画像", title: "#{p.title}", class: "img-thumbnail" 
+        .star.row.justify-content-center.m-1
+          - 5.times do |s|
+            - if p.evaluation >= (s+1)
+              .star_on ★
+            - else
+              .star_off ★
+          - @favorite_count = 1
+          = "（お気に入り#{@favorite_count}件）"
+    br
+  = will_paginate @post, :previous_label => ' &lt 前へ ', :next_label => ' 次へ &gt ', class: "justify-content-center"

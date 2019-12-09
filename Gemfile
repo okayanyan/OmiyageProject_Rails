@@ -51,8 +51,9 @@ gem 'jquery-rails', '~> 4.3'
 # Use VScode plugin
 gem 'solargraph', '~> 0.38'
 
-# Use AWS
-gem 'aws-sdk'
+# Use AWS s3
+gem 'carrierwave', '~> 2.0'
+gem 'fog', '~> 2.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

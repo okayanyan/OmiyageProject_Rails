@@ -4,11 +4,7 @@ RSpec.describe Post, type: :model do
   describe 'save_post' do
 
     # post作成
-    let(:prefecture) {Prefecture.new(id: 1, name: "北海道")}
-    let(:correct_user) {User.new(id: 1, name: "user", email: "user@example.com",
-                          password: "password", password_confirmation: "password")}
-    let(:correct_post) {correct_user.post.new(id: 1, title: "test_title", image_key: "static/Miyalog/image/no_image.jpg",
-                          prefecture: prefecture, evaluation: 1, content: "test_content")}
+    let(:post1) {FactoryBot.create(:test_post)}
 
     shared_examples_for 'valid_post.' do
       it { expect(post.valid?).to be_truthy }
@@ -19,7 +15,7 @@ RSpec.describe Post, type: :model do
     end
 
     context 'user_is_none' do
-      let(:post) {correct_post}
+      let(:post) {post1}
       before do
         post.user = nil
       end
@@ -27,7 +23,7 @@ RSpec.describe Post, type: :model do
     end
     
     context 'title_is_none' do
-      let(:post) {correct_post}
+      let(:post) {post1}
       before do
         post.title = nil
       end
@@ -35,7 +31,7 @@ RSpec.describe Post, type: :model do
     end
 
     context 'title_is_too_long' do
-      let(:post) {correct_post}
+      let(:post) {post1}
       before do
         post.title = "a" * 31
       end
@@ -43,7 +39,7 @@ RSpec.describe Post, type: :model do
     end
 
     context 'prefecture_is_none' do
-      let(:post) {correct_post}
+      let(:post) {post1}
       before do
         post.prefecture = nil
       end
@@ -51,7 +47,7 @@ RSpec.describe Post, type: :model do
     end
 
     context 'content_is_none' do
-      let(:post) {correct_post}
+      let(:post) {post1}
       before do
         post.content = nil
       end
@@ -59,7 +55,7 @@ RSpec.describe Post, type: :model do
     end
 
     context 'content_is_too_long' do
-      let(:post) {correct_post}
+      let(:post) {post1}
       before do
         post.content = "a" * 1001
       end
@@ -67,7 +63,7 @@ RSpec.describe Post, type: :model do
     end
 
     context 'evaluations_is_none' do
-      let(:post) {correct_post}
+      let(:post) {post1}
       before do
         post.user = nil
       end
@@ -75,7 +71,7 @@ RSpec.describe Post, type: :model do
     end
 
     context 'valid_information' do
-      let(:post) {correct_post}
+      let(:post) {post1}
       it_behaves_like 'valid_post.'
     end
     

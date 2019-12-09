@@ -16,8 +16,10 @@
         data: {confirm: "削除しますか？"}
   
   .row.justify-content-center
-    = image_tag "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{@post.image_key}", alt: "#{@post.title}の画像", title: "#{@post.title}",  class: "img-thumbnail" 
-  
+    - if @post.image_key.model['image_key'].nil?
+      = image_tag  "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{ENV['AWS_POST_NO_IMAGE']}", alt: "#{@post.title}の画像", title: "#{@post.title}", class: "img-thumbnail" 
+    - else
+      = image_tag  @post.image_key.to_s, alt: "#{@post.title}の画像", title: "#{@post.title}", class: "img-thumbnail" 
   .star.row.justify-content-center.m-1
     - 5.times do |s|
       - if @post.evaluation >= (s+1)
@@ -32,7 +34,7 @@
   / お気に入り追加ボタン
   .row.justify-content-center
     - if !current_user.nil?
-      br
+    
       br
     / お気に入り登録されているか
     - elsif true
@@ -43,7 +45,7 @@
   / お気に入り追加ボタン
   .row.justify-content-center
     - if current_user != @user
-      br
+    
       br
     / お気に入り登録されているか
     - elsif true

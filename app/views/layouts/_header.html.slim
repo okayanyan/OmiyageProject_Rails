@@ -11,7 +11,7 @@ header.navbar.fixed-top.navbar-inverse.bg-primary.py-0
           ul.dropdown-menu.bg-info.border-white.position-absolute#dropdown
             - if logged_in?
               li.dropdown-items.mx-1 = link_to "プロフィール", user_path(current_user), class: "text-white"
-              li.dropdown-items.mx-1 = link_to "投稿", "#", class: "text-white"
+              li.dropdown-items.mx-1 = link_to "投稿", new_post_path, class: "text-white"
               li.dropdown-items.mx-1 = link_to "お気に入り投稿リスト", "#", class: "text-white"
               li.dropdown-items.mx-1 = link_to "お気に入り投稿者リスト", "#", class: "text-white"
               li.dropdown-items.mx-1 = link_to "ログアウト", logout_path, method: :delete, class: "text-white"

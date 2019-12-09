@@ -34,11 +34,6 @@ RSpec.describe UsersController, type: :controller do
 
     let(:user) {FactoryBot.create(:test_user)}
     let(:user2) {FactoryBot.create(:test_user2)}
-
-    # TODO(login operation)
-    #def log_in_as(_user)
-    #  session[:user_id] = _user.id
-    #end
     
     describe 'describe_form_to_update_user' do
       

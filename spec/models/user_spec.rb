@@ -2,8 +2,7 @@ require 'rails_helper'
 
 describe User do
 
-  let(:correct_user) {User.new(name: "user", email: "user@example.com",
-                        password: "password", password_confirmation: "password")}
+  let(:user1) {FactoryBot.create(:test_user)}
 
   describe 'save user.' do
         
@@ -16,7 +15,7 @@ describe User do
     end
                         
     context 'name is empty,' do
-      let(:user) {correct_user}
+      let(:user) {user1}
       before do
         user.name = ""
       end
@@ -24,7 +23,7 @@ describe User do
     end
 
     context 'name is too long.' do
-      let(:user) {correct_user}
+      let(:user) {user1}
       before do
         user.name = "a"*21
       end
@@ -32,7 +31,7 @@ describe User do
     end
 
     context 'email is wrong.' do
-      let(:user) {correct_user}
+      let(:user) {user1}
       before do
         user.email = "example.com"
       end
@@ -40,7 +39,7 @@ describe User do
     end
 
     context 'password is empty.' do
-      let(:user) {correct_user}
+      let(:user) {user1}
       before do
         user.password = ""
         user.password_confirmation = ""
@@ -49,7 +48,7 @@ describe User do
     end
 
     context 'password is too long.' do
-      let(:user) {correct_user}
+      let(:user) {user1}
       before do
         user.password = "a"*21
         user.password_confirmation = "a"*21
@@ -58,7 +57,7 @@ describe User do
     end
 
     context 'password is no match for confirmation.' do
-      let(:user) {correct_user}
+      let(:user) {user1}
       before do
         user.password = "password"
         user.password_confirmation = "password1"
@@ -67,16 +66,16 @@ describe User do
     end
 
     context 'correct user information.' do
-      let(:user) {correct_user}
+      let(:user) {user1}
       it_behaves_like 'valid user.'
     end
   end
 
   describe 'delete_user' do
-    let(:post) {correct_user.post.new(title: 'test', image_key: nil, 
+    let(:post) {user1.post.new(title: 'test', image_key: nil, 
                   prefecture_id: 1, evaluation: 1, content: 'test_content')}
     before do
-      correct_user.destroy
+      user1.destroy
     end
     # ユーザーを削除すると、投稿も消える
     it 'deleted_user_and_post' do

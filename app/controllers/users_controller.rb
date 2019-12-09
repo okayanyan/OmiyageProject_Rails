@@ -29,7 +29,6 @@ class UsersController < ApplicationController
   #   ・create user
   def create
     @user = User.new(user_params)
-    set_image_key
     if @user.save
       flash[:success] = "ユーザーが作成されました。"
       #   save in session 

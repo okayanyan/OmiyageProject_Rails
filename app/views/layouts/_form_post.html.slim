@@ -1,0 +1,23 @@
+.row.justify-content-center
+  = form_for(@post) do |f| 
+    = render 'shared/error_messages'
+    table
+      tr
+        td = f.label :title, "商品名："
+        td = f.text_field :title, class: 'form-control'
+      tr
+        td = f.label :image_key, "画像ファイル："
+        td = f.file_field :image_key, accept: 'image/jpg,image/jpeg,image/png,image/gif'
+      tr
+        td = f.label :prefecture, "都道府県："
+        td = f.select :prefecture, @prefecture, class: 'form-control'
+      tr
+        td = f.label :evaluation, "評価："
+        td = f.select :evaluation, @evaluation, class: 'form-control'
+      tr
+        td = f.label :content, "詳細内容："
+        td = f.text_area :content, class: 'form-control'
+      tr
+        td
+        td = f.submit yield(:button_text), class: 'btn btn-outline-primary btn-sm', \
+                id: 'commit_button'

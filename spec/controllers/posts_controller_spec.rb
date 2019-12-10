@@ -52,15 +52,12 @@ RSpec.describe PostsController, type: :controller do
     end
   end
   
-  #describe 'post#delete' do
-  #  before do
-  #    post :update, params: {id: '1', post: {user: 1, title: "test_edit", 
-  #      image_key: "test", prefecture: 1, evaluation: 1, content: "test"}}
-  #  end
-  #  it 'return_success_response' do
-  #    delete :destroy, params: {id: '1'}
-  #    expect(response).to have_http_status(:success)
-  #  end
-  #end
+  describe 'post#delete' do
+    let(:post1) {FactoryBot.create(:test_post)}
+    it 'return_success_response' do
+      delete :destroy, params: {id: post1.id}
+      expect(response).to redirect_to login_path
+    end
+  end
   
 end

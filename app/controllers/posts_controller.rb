@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :check_logged_in, only:[:new, :create, :edit, :update, :destroy]
-  before_action :check_correct_user, only:[:edit, :update, :destroy]
+  before_action -> {check_correct_user(Post)}, only:[:edit, :update, :destroy]
 
   def index
     @post = Post.paginate(page: params[:page], per_page: 10)
@@ -63,7 +63,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-
+    Post.find_by(id: params[:id]).destroy
+    flash[:success] = "削除に成功しました。"
+    redirect_to root_url
   end
 
   private

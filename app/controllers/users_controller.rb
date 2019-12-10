@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :check_logged_in, only:[:edit, :update, :destroy]
-  before_action :check_correct_user, only:[:edit, :update, :destroy]
+  before_action -> {check_correct_user(User)}, only:[:edit, :update, :destroy]
 
   # function
   #   ・describe user page

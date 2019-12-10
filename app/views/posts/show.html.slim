@@ -14,7 +14,7 @@
     / 削除ボタン
     .row.justify-content-end.mr-1
       = link_to "投稿を削除する",  post_path(@post), method: :delete,class:"btn btn-outline-primary btn-sm", \
-          id: "delete_button", data: {confirm: "削除しますか？"}
+          id: "delete_button", data: {confirm: "投稿を削除しますか？"}
   - else
     br
     br

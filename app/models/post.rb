@@ -8,6 +8,6 @@ class Post < ApplicationRecord
   validates :prefecture_id, presence: true
   validates :evaluation, presence: true
   validates :content, presence: true, length: {maximum: 1000}
-  
+
   mount_uploader :image_key, ImageUploader
 end

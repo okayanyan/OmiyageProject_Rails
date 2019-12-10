@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :post, dependent: :destroy
-  attr_accessor :remember_token, :login_flag_for_test
+  attr_accessor :remember_token
   validates :name, presence: true, length: {maximum: 20}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },

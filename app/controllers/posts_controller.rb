@@ -1,7 +1,10 @@
 class PostsController < ApplicationController
+<<<<<<< HEAD
   before_action :check_logged_in, only:[:new, :create, :edit, :update, :destroy]
   before_action -> {check_correct_user(Post)}, only:[:edit, :update, :destroy]
 
+=======
+>>>>>>> ac92864... add post index&show function
   def index
     @post = Post.paginate(page: params[:page], per_page: 10)
   end
@@ -10,6 +13,7 @@ class PostsController < ApplicationController
     # TODO
     #   お気に入り投稿の実装後にジョインも組み込む
     @post = Post.joins(:user).joins(:prefecture).\
+<<<<<<< HEAD
       select("posts.*, users.name as user_name, prefectures.name as prefecture_name").find_by(id: params[:id])
   end
 
@@ -59,10 +63,29 @@ class PostsController < ApplicationController
       @post = Post.find_by(id: params[:id])
       redirect_to edit_post_path(id: @post.id)
     end
+=======
+      select("posts.*, users.name as user_name, prefectures.name as prefecture_name").find_by(params[:id])
+  end
+
+  def new
+    
+  end
+
+  def create
+
+  end
+
+  def edit
+
+  end
+
+  def update
+>>>>>>> ac92864... add post index&show function
 
   end
 
   def destroy
+<<<<<<< HEAD
     Post.find_by(id: params[:id]).destroy
     flash[:success] = "削除に成功しました。"
     redirect_to root_url
@@ -128,5 +151,9 @@ class PostsController < ApplicationController
       !(session[:post_title].nil? && session[:post_prefecture].nil? && \
         session[:post_evaluation] && session[:post_content])
     end
+=======
+
+  end
+>>>>>>> ac92864... add post index&show function
 
 end

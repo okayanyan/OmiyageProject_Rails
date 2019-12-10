@@ -16,11 +16,21 @@ describe 'PostEdit', type: :feature do
 
   describe 'BeforeEdit' do
 
-    before do
-      # go to edit page
-      visit post_path(id: post2.id)
+    context 'not login' do
+      before do
+        click_on 'ログアウト'
+        visit post_path(id: post1.id)
+      end
+      it 'not_visible_edit_button' do
+        expect(page).not_to have_content('投稿を編集する')
+      end
     end
+    
     context 'other_user\'s_post' do
+      before do
+        # go to edit page
+        visit post_path(id: post2.id)
+      end
       it 'not_visible_edit_button' do
         expect(page).not_to have_content('投稿を編集する')
       end

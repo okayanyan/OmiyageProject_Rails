@@ -65,8 +65,13 @@ module SessionsHelper
   #   ・login check
   # used
   #   ・prevent to manipulate invalid operration
-  def check_correct_user
-    user = User.find_by(id: params[:id])
+  def check_correct_user(model)
+    obj = model.find_by(id: params[:id])
+    if obj.class == User
+      user = obj
+    else
+      user = obj.user
+    end
     if !(current_user?(user))
       flash[:danger] = "ユーザーが違います。"
       redirect_to root_path

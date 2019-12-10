@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :check_logged_in, only:[:new, :create, :edit, :update, :destroy]
-  before_action :check_correct_user, only:[:new, :create, :edit, :update, :destroy]
+  before_action :check_correct_user, only:[:edit, :update, :destroy]
 
   def index
     @post = Post.paginate(page: params[:page], per_page: 10)
@@ -10,7 +10,7 @@ class PostsController < ApplicationController
     # TODO
     #   お気に入り投稿の実装後にジョインも組み込む
     @post = Post.joins(:user).joins(:prefecture).\
-      select("posts.*, users.name as user_name, prefectures.name as prefecture_name").find_by(params[:id])
+      select("posts.*, users.name as user_name, prefectures.name as prefecture_name").find_by(id: params[:id])
   end
 
   def new
@@ -18,6 +18,9 @@ class PostsController < ApplicationController
     @prefecture = Hash.new()
     Prefecture.all.each {|p| @prefecture[p.name]=p.id}
     @evaluation = [1, 2, 3, 4, 5]
+    if has_create_post_info?
+      get_create_post_info
+    end
   end
 
   def create
@@ -36,10 +39,26 @@ class PostsController < ApplicationController
   end
 
   def edit
-
+    @post = Post.find_by(id: params[:id])
+    @prefecture = Hash.new()
+    Prefecture.all.each {|p| @prefecture[p.name]=p.id}
+    @evaluation = [1, 2, 3, 4, 5]
   end
 
   def update
+    @post = Post.find_by(id: params[:id])
+    if !(@post.prefecture.id == prefecture_params)
+      prefecture = Prefecture.find_by(id: prefecture_params)
+      @post.prefecture = prefecture
+    end
+    if @post.update_attributes(post_params)
+      flash[:success] = '更新に成功しました。'
+      redirect_to @post
+    else
+      set_error_info(@post)
+      @post = Post.find_by(id: params[:id])
+      redirect_to edit_post_path(id: @post.id)
+    end
 
   end
 
@@ -66,7 +85,7 @@ class PostsController < ApplicationController
         session[:post_title] = @post.title
       end
       if @post.prefecture
-        session[:post_prefecture] = @post.prefecture
+        session[:post_prefecture_id] = @post.prefecture.id
       end
       if @post.evaluation
         session[:post_evaluation] = @post.evaluation
@@ -80,13 +99,13 @@ class PostsController < ApplicationController
     #   ・function to get input parameter
     # used
     #   ・redirect sign up form when failed to validate
-    def get_create_user_info
+    def get_create_post_info
       if session[:post_title]
         @post.title = session[:post_title]
         session.delete(:post_title)
       end
       if session[:post_prefecture]
-        @post.prefecture = session[:post_prefecture]
+        @post.prefecture = Prefecture.find_by(id: session[:post_prefecture_id])
         session.delete(:post_prefecture)
       end
       if session[:post_evaluation]
@@ -103,7 +122,7 @@ class PostsController < ApplicationController
     #   ・function to judge input parameter
     # used
     #   ・redirect sign up form when failed to validate
-    def has_create_user_info?
+    def has_create_post_info?
       !(session[:post_title].nil? && session[:post_prefecture].nil? && \
         session[:post_evaluation] && session[:post_content])
     end

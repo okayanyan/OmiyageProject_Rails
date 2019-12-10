@@ -1,10 +1,10 @@
-- provide(:commit_button_text, '投稿する')
+- provide(:commit_button_text, '更新する')
 - provide(:cancel_button_text, '保存せず戻る')
-- provide(:cancel_link, root_path)
+- provide(:cancel_link, post_path(@post))
 
 .container
   .row.justify-content-center
-    h2 お土産の投稿
+    h2 お土産の編集
   br
   br 
   = render  "layouts/form_post" 

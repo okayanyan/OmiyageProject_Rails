@@ -14,8 +14,8 @@ User.create!(
   password_confirmation: 'test',
   image_key: "static/Miyalog/image/image_thumbnail_person.jpeg")
 99.times do |n|
-  name  = "test#{n+1}"
-  email = "example-#{n+1}@railstutorial.org"
+  name  = "test#{n+2}"
+  email = "example-#{n+2}@example.com"
   password = "password"
   User.create!(name:  name,
                email: email,
@@ -78,13 +78,13 @@ Prefecture.create!(
 
 # create post
 100.times do |n|
-  user = User.find_by(id: 1)
-  prefecture = Prefecture.find_by(id: 1)
-  Post.create!(id: n+1
+  user = User.find_by(id: n+1)
+  prefecture = Prefecture.find_by(id: (n+1)/3 + 1)
+  Post.create!(id: n+1,
                user: user,
                title: "title_test#{n+1}",
                prefecture: prefecture,
                evaluation: 1,
                content: "test_content#{n+1}",
-               created_at: n.minutes.ago)
+               created_at: (100-n).minutes.ago)
 end

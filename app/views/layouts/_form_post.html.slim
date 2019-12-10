@@ -19,5 +19,9 @@
         td = f.text_area :content, class: 'form-control'
       tr
         td
-        td = f.submit yield(:button_text), class: 'btn btn-outline-primary btn-sm', \
+        td 
+          .row.m-0
+            = f.submit yield(:commit_button_text), class: 'btn btn-outline-primary btn-sm', \
                 id: 'commit_button'
+            = link_to yield(:cancel_button_text), yield(:cancel_link), class: 'btn btn-outline-primary btn-sm ml-5', \
+                id: 'cancel_button', data: {confirm: "保存せずに移動しますか？"}

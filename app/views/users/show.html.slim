@@ -1,25 +1,22 @@
 .container-fluid
   .row.justify-content-center.mx-0
-    h3 アカウント情報
+    .position-fixed#position-fixed.bg-white
+      h3 アカウント情報
+  br
+  br
   br
   .row.justify-content-center.mx-0
-    section
-      = image_tag "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{@user.image_key}", alt: "#{@user.name}の画像", title: "#{@user.name}", class: "img-thumbnail"
-  .row.justify-content-center.mx-0
-    section
-      p フォロー・フォロワー情報
-  .row.justify-content-center.mx-0
-    table
-      tr
-        td ユーザー名
-        td = @user.name
-      tr
-        td メールアドレス
-        td = @user.email
-  br
-  .row.justify-content-center.mx-0
-    = link_to "アカウント情報を編集する", edit_user_path(current_user), class: "btn btn-outline-primary btn-sm", id: "edit_user_link"
-  br
-  .row.justify-content-center.mx-0
-    = link_to "アカウントを削除する", user_path(current_user), method: :delete, class: "btn btn-outline-primary btn-sm",
-         id: "delete_user_link", data: { confirm: "アカウントを削除してもよろしいですか？?" }
+    aside.col-12.d-md-none
+      = render 'users/profile'
+      br
+      br
+    aside.col-md-4.d-none.d-md-block
+      .position-fixed
+        = render 'users/profile'
+    aside.col-md-2
+    aside.col-md-6
+      - if @list_type == 'post'
+        = render 'users/post_list'
+      - else
+        = render 'users/follow_list'
+      

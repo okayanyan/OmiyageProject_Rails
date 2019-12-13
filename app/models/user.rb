@@ -1,5 +1,14 @@
 class User < ApplicationRecord
   has_many :post, dependent: :destroy
+  has_many :active_follow, class_name: "FollowUser",
+              foreign_key: "following_user_id",
+              dependent: :destroy
+  has_many :passive_follow, class_name: "FollowUser",
+              foreign_key: "target_user_id",
+              dependent: :destroy
+  has_many :target_user, through: :active_follow
+  has_many :following_user, through: :passive_follow
+
   attr_accessor :remember_token
   validates :name, presence: true, length: {maximum: 20}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -34,6 +43,32 @@ class User < ApplicationRecord
   def authenticated?(remember_token)
     return false if self.remember_digest.nil?
     BCrypt::Password.new(self.remember_digest).is_password?(remember_token)
+  end
+
+  # function
+  #   ・function to follow
+  # used
+  #    ・update follow user list
+  def follow(other_user)
+    if self != other_user
+      target_user << other_user
+    end
+  end
+
+  # function
+  #   ・function to unfollow
+  # used
+  #    。update follow user list
+  def unfollow(other_user)
+    target_user.delete(other_user) if following?(other_user)
+  end
+
+  # function
+  #   ・function to check to follow
+  # used
+  #    。follow button text
+  def following?(other_user)
+    target_user.include?(other_user)
   end
 
   private

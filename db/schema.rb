@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_04_031756) do
+ActiveRecord::Schema.define(version: 2019_12_10_061430) do
+
+  create_table "follow_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "following_user_id"
+    t.bigint "target_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["following_user_id", "target_user_id"], name: "index_follow_users_on_following_user_id_and_target_user_id", unique: true
+    t.index ["following_user_id"], name: "index_follow_users_on_following_user_id"
+    t.index ["target_user_id"], name: "index_follow_users_on_target_user_id"
+  end
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
@@ -42,6 +52,8 @@ ActiveRecord::Schema.define(version: 2019_12_04_031756) do
     t.string "image_key"
   end
 
+  add_foreign_key "follow_users", "users", column: "following_user_id"
+  add_foreign_key "follow_users", "users", column: "target_user_id"
   add_foreign_key "posts", "prefectures"
   add_foreign_key "posts", "users"
 end

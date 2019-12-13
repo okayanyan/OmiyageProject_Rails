@@ -1,0 +1,26 @@
+.row.justify-content-center
+  section
+    = image_tag "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{@user.image_key}", alt: "#{@user.name}の画像", \
+            title: "#{@user.name}", class: "img-thumbnail", id: "person-thumbnail"
+.row.justify-content-center
+  section
+    = link_to "#{@user.target_user.count} followings", following_user_path(@user), class: "mx-1", id: "user_#{@user.id}_followings"
+    = link_to "#{@user.following_user.count} followers", followers_user_path(@user), class: "mx-1", id: "user_#{@user.id}_followers"
+br
+.row.justify-content-center
+  table
+    tr
+      td ユーザー名：
+      td = @user.name
+    tr
+      td メールアドレス：
+      td = @user.email
+br
+- if current_user == @user
+  .row.justify-content-center
+    = link_to "アカウント情報を編集する", edit_user_path(current_user), class: "btn btn-outline-primary btn-sm", id: "edit_user_link"
+  br
+  .row.justify-content-center
+    = link_to "アカウントを削除する", user_path(current_user), method: :delete, class: "btn btn-outline-primary btn-sm",
+                id: "delete_user_link", data: { confirm: "アカウントを削除してもよろしいですか？?" }
+= render "follows/follow_button", user: @user

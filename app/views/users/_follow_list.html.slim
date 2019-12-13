@@ -1,0 +1,26 @@
+section 
+  - @list.each do |l|
+      .row.justify-content-center.mx-0
+        .border.border-secondary.rounded#follow_list
+          .row.my-2.mx-0
+            aside.col-4
+              section
+                = image_tag "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{@user.image_key}", alt: "#{@user.name}の画像", \
+                        title: "#{@user.name}", class: "img-thumbnail", id: "person-thumbnail-mini"
+            
+            aside.col-8.mx-0
+              section.my-0.text-left
+                .row
+                  .col-8.col-md-6
+                    = link_to l.name, user_path(l)
+                  .col-3.col-md-5
+                    = render "follows/follow_button", user: l
+                  .col-1.col-md-1
+              section.my-0.text-left
+                .row
+                  div[class="mr-1", id="user_#{l.id}_followings"] = "#{l.target_user.count} followings"
+                  div[class="ml-1", id="user_#{l.id}_followers"] = "#{l.following_user.count} followers"
+  - if @list.length < 5
+    - (15 - (3 *@list.length)).times do
+      br
+  br

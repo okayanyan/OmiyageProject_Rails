@@ -15,7 +15,7 @@ describe 'UserEdit', type: :feature do
   describe 'edit_user' do
     before do
       # go to user edit form
-      click_link 'edit_user_link'
+      click_link 'edit_user_link', match: :first # 2 links exists because col-transformation
     end
 
     context 'edit_by_invalid_information' do
@@ -55,7 +55,7 @@ describe 'UserEdit', type: :feature do
     end
     context 'click_delete_button' do
       it 'delete_user_and_redirect_root_page' do
-        click_link 'delete_user_link'
+        click_link 'delete_user_link', match: :first
         expect(current_path).to eq root_path
         expect(page).to have_content "ユーザーを削除しました。"
 

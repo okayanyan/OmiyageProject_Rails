@@ -3,7 +3,12 @@
     h2 = "#{@post.title}(#{@post.prefecture_name})"
   br
   .row.justify-content-end.mr-1
-    p = "投稿者　：　#{@post.user_name}(○人登録)"
+    p 投稿者　：　
+    = link_to "#{@post.user_name}", user_path(@post.user)
+    = "(#{@post.user.following_user.count}人登録)"
+  .row.justify-content-end.mr-1
+    = render "follows/follow_button", user: @post.user
+  br
   .row.justify-content-end.mr-1
     p = "投稿日時　：　#{@post.created_at.strftime("%Y/%m/%d/ %H:%M")}"
   
@@ -38,7 +43,6 @@
   / お気に入り追加ボタン
   .row.justify-content-center
     - if !current_user.nil?
-   
       br
     / お気に入り登録されているか
     - elsif true

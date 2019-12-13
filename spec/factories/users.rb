@@ -26,4 +26,5 @@ FactoryBot.define do
     email { "test4@test.com" }
     password { "password" }
   end
+
 end

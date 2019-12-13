@@ -7,19 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # create user
-User.create!(
-  name: 'test1',
-  email: 'test1@test.com',
-  password: 'test',
-  password_confirmation: 'test',
-  image_key: "static/Miyalog/image/image_thumbnail_person.jpeg")
-99.times do |n|
-  name  = "test#{n+2}"
-  email = "example-#{n+2}@example.com"
-  password = "password"
+100.times do |n|
+  name  = "test#{n+1}"
+  email = "test#{n+1}@test.com"
+  password = "test"
+  image_key = "static/Miyalog/image/image_thumbnail_person.jpeg"
   User.create!(name:  name,
                email: email,
-               password:              password,
+               image_key: image_key,
+               password: password,
                password_confirmation: password)
 end
 
@@ -78,7 +74,7 @@ Prefecture.create!(
 
 # create post
 100.times do |n|
-  user = User.find_by(id: n+1)
+  user = User.find_by(id: (n+1)/20 + 1)
   prefecture = Prefecture.find_by(id: (n+1)/3 + 1)
   Post.create!(id: n+1,
                user: user,
@@ -87,4 +83,25 @@ Prefecture.create!(
                evaluation: 1,
                content: "test_content#{n+1}",
                created_at: (100-n).minutes.ago)
+end
+
+# follow
+#   user_id:1~10は、相互
+#           11~20は、1~10にフォローされるが、返さない
+#           21~30は、1~10をフォローするが、返されない
+30.times do |u1|
+  user1 = User.find(u1+1)
+  if u1 < 10
+    20.times do |u2|
+      if u1+1 != (u2+1)
+        user2 = User.find(u2+1)
+        FollowUser.create(following_user: user1, target_user: user2)
+      end
+    end
+  elsif u1 > 19
+    10.times do |u2|
+      user2 = User.find(u2+1)
+      FollowUser.create(following_user: user1, target_user: user2)
+    end
+  end
 end

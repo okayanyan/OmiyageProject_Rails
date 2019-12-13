@@ -4,6 +4,8 @@ body {
                 "メイリオ", "Meiryo, Osaka", "ＭＳ Ｐゴシック", 
                 "MS PGothic", sans-serif;
   padding-top: 130px;
+  z-index: 0;
+  text-align: center;
 }
 
 /* header */
@@ -11,4 +13,9 @@ body {
   li {
     font-size: 14px;
   }
+}
+
+#position-fixed {
+  width: 100%;
+  z-index: 1;
 }

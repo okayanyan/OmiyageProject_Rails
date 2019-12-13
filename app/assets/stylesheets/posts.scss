@@ -9,22 +9,32 @@
   background-size: cover;
   height: 300px;
   color: #FFF;
+  p {
+    font-size: 16px;
+  }
 }
 
-#about p {
-  font-size: 16px;
-}
-
-/* for post image */
-#thumbnail img {
+/* for post*/
+#thumbnail {
+  img {
     width: 500px;
     height: 500px;
+  }
+  .star {
+    text-align: center;
+    font-size: 25px;
+  }
 }
 
-/* for review star */
-.star {
-	text-align: center;
-	font-size: 25px;
+#thumbnail-mini {
+  img {
+  width: 300px;
+  height: 300px;
+  }
+  .star {
+    text-align: center;
+    font-size: 15px;
+  }
 }
 
 .star_post:hover {
@@ -37,10 +47,6 @@
 	color: gray;
 }
 
-/* for psot detail */
 #detail p {
     word-wrap: break-word;
 }
-
-
-/* microposts */

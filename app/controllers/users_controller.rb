@@ -9,7 +9,9 @@ class UsersController < ApplicationController
   #     ・redirect when logged in.
   #       etc...
   def show
-    @user = User.find_by(params[:id])
+    @user = User.find_by(id: params[:id])
+    @list = @user.post.all
+    @list_type = "post"
   end
 
   # function
@@ -46,14 +48,14 @@ class UsersController < ApplicationController
   # used
   #   ・update user information
   def edit
-    @user = User.find_by(params[:id])
+    @user = User.find_by(id: params[:id])
     if has_create_user_info?
       get_create_user_info
     end
   end
 
   def update
-    @user = User.find_by(params[:id])
+    @user = User.find_by(id: params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "更新が成功しました。"
       redirect_to @user
@@ -71,6 +73,20 @@ class UsersController < ApplicationController
     user.destroy
     flash[:success] = "ユーザーを削除しました。"
     redirect_to root_path
+  end
+
+  def following
+    @user = User.find_by(id: params[:id])
+    @list = @user.target_user
+    @list_type = "follow"
+    render :show
+  end
+
+  def followers
+    @user = User.find_by(id: params[:id])
+    @list = @user.following_user
+    @list_type = "follow"
+    render :show
   end
 
   private

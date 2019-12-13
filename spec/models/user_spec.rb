@@ -72,14 +72,52 @@ describe User do
   end
 
   describe 'delete_user' do
-    let(:post) {user1.post.new(title: 'test', image_key: nil, 
-                  prefecture_id: 1, evaluation: 1, content: 'test_content')}
-    before do
-      user1.destroy
+    let(:user) {user1}
+    it 'deleted_user' do
+      id = user.id
+      user.destroy
+      expect(User.where(id: id).count).to eq 0
     end
-    # ユーザーを削除すると、投稿も消える
-    it 'deleted_user_and_post' do
-      expect(Post.where(id: post.id).count).to eq 0
+  end
+
+  describe 'Follow' do
+
+    let(:user1) {FactoryBot.create(:test_user)}
+    let(:user2) {FactoryBot.create(:test_user2)}
+    
+    # followメソッドテスト
+    describe 'follow_user' do
+      context 'follow_self' do
+        it 'invalid_following' do
+          expect(user1.following?(user1)).to eq false
+          user1.follow(user1)
+          expect(user1.following?(user1)).to eq false
+        end
+      end
+      context 'follow_other' do
+        it 'valid_following' do
+          expect(user1.following?(user2)).to eq false
+          user1.follow(user2)
+          expect(user1.following?(user2)).to eq true
+        end
+      end
+    end
+
+
+    # unfollowメソッドテスト
+    describe 'unfollow_user' do
+      #事前にリレーション
+      before do
+        user1.follow(user2)
+      end
+
+      context 'unfollow_other' do
+        it 'valid_unfollowing' do
+          expect(user1.following?(user2)).to eq true
+          user1.unfollow(user2)
+          expect(user1.following?(user2)).to eq false
+        end
+      end
     end
   end
 

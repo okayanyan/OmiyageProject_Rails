@@ -1,0 +1,22 @@
+section 
+  - if @list.length < 1
+    - 15.times do
+      br
+  - else
+    - @list.each do |p|
+      .row.justify-content-center.mx-0
+        .border.rounded-lg.mx-4.mb-4#thumbnail-mini
+          h3.text-center.m-1
+            = link_to p.title,  post_path(p), class: ""
+          - if p.image_key.model['image_key'].nil?
+            = image_tag  "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{ENV['AWS_POST_NO_IMAGE']}", alt: "#{p.title}の画像", title: "#{p.title}", class: "img-thumbnail" 
+          - else
+            = image_tag  p.image_key.to_s, alt: "#{p.title}の画像", title: "#{p.title}", class: "img-thumbnail" 
+          .star.row.justify-content-center.m-1
+            - 5.times do |s|
+              - if p.evaluation >= (s+1)
+                .star_on ★
+              - else
+                .star_off ★
+            - @favorite_count = 1
+            = "（お気に入り#{@favorite_count}件）"

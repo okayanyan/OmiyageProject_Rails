@@ -8,6 +8,8 @@ class User < ApplicationRecord
               dependent: :destroy
   has_many :target_user, through: :active_follow
   has_many :following_user, through: :passive_follow
+  has_many :favorite, dependent: :destroy
+  has_many :favorite_post, through: :favorite, source: :post
 
   attr_accessor :remember_token
   validates :name, presence: true, length: {maximum: 20}
@@ -50,9 +52,7 @@ class User < ApplicationRecord
   # used
   #    ・update follow user list
   def follow(other_user)
-    if self != other_user
-      target_user << other_user
-    end
+    target_user << other_user if self != other_user
   end
 
   # function
@@ -69,6 +69,30 @@ class User < ApplicationRecord
   #    。follow button text
   def following?(other_user)
     target_user.include?(other_user)
+  end
+
+  # function
+  #   ・function to regist favorite
+  # used
+  #   ・favorite button
+  def favorite(post)
+    favorite_post << post if !favorites?(post)
+  end
+
+  # function
+  #   ・function to unregist favorite
+  # used
+  #    favorite button
+  def unfavorite(post)
+    favorite_post.delete(post) if favorites?(post)
+  end
+
+  # function
+  #   ・function to check to regist favorite
+  # used
+  #   ・favorite button
+  def favorites?(post)
+    favorite_post.include?(post)
   end
 
   private

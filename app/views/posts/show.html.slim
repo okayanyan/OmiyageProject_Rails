@@ -35,31 +35,14 @@
         .star_on ★
       - else
         .star_off ★
-    - @favorite_count = 1
-    = "（お気に入り#{@favorite_count}件）"
+    = "（お気に入り#{@post.favorite_user.count}件）"
   .row.justify-content-center
     p = @post.content
   br
   / お気に入り追加ボタン
   .row.justify-content-center
-    - if !current_user.nil?
-      br
-    / お気に入り登録されているか
-    - elsif true
-      = link_to "お気に入り投稿を解除する", "#", method: :delete, class:"btn btn-outline-primary btn-sm" 
-    - else
-      = link_to "お気に入り投稿に登録する", "#", class:"btn btn-outline-primary btn-sm"
+    = render "favorites/favorite_button", post: @post
   br
-  / お気に入り追加ボタン
-  .row.justify-content-center
-    - if current_user != @user
-      br
-    / お気に入り登録されているか
-    - elsif true
-      = link_to "お気に入り投稿者を解除する", "#", method: :delete, class:"btn btn-outline-primary btn-sm" 
-    - else
-      = link_to "お気に入り投稿者に登録する", "#", class:"btn btn-outline-primary btn-sm"
-    
 
 
 

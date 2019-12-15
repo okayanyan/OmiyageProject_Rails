@@ -22,8 +22,7 @@
               .star_on ★
             - else
               .star_off ★
-          - @favorite_count = 1
-          = "（お気に入り#{@favorite_count}件）"
+          = "（お気に入り#{p.favorite_user.count}件）"
     br
   .row.justify-content-center
     = will_paginate @post, :previous_label => ' &lt 前へ ', :next_label => ' 次へ &gt '

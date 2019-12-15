@@ -1,0 +1,11 @@
+- if logged_in?
+  - if current_user.favorites?(post)
+    = form_for(:favorites, url: favorite_path, method: :delete, remote: true) do |f|
+      = hidden_field_tag :post_id, post.id
+      = f.submit "お気に入り解除", class: 'btn btn-outline-primary btn-sm', id: "post_#{post.id}_unfavorite_button"
+  - else  
+    = form_for(:favorites, url: favorites_path, remote: true) do |f|
+      = hidden_field_tag :post_id, post.id
+      = f.submit "お気に入り登録", class: 'btn btn-outline-primary btn-sm', id: "post_#{post.id}_favorite_button"
+- else
+  br

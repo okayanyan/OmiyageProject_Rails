@@ -18,5 +18,4 @@ section
                 .star_on ★
               - else
                 .star_off ★
-            - @favorite_count = 1
-            = "（お気に入り#{@favorite_count}件）"
+            = "（お気に入り#{p.favorite_user.count}件）"

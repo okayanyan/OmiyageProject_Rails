@@ -7,8 +7,6 @@ class PostsController < ApplicationController
   end
 
   def show
-    # TODO
-    #   お気に入り投稿の実装後にジョインも組み込む
     @post = Post.joins(:user).joins(:prefecture).\
     select("posts.*, users.name as user_name, prefectures.name as prefecture_name").find_by(id: params[:id])
   end

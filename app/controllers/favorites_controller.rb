@@ -1,5 +1,9 @@
 class FavoritesController < ApplicationController
 
+  def index
+    @post = current_user.favorite_post.paginate(page: params[:page], per_page: 10)
+  end
+
   def create
     # save just before page location
     set_just_before_location

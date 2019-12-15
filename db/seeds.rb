@@ -105,3 +105,15 @@ end
     end
   end
 end
+
+# favorite
+#   user_id:1~10は、相互
+#           11~20は、1~10にフォローされるが、返さない
+#           21~30は、1~10をフォローするが、返されない
+3.times do |u|
+  user = User.find(u+1)
+  20.times do |p|
+    post = Post.find(20*(u+1)+p+1)
+    Favorite.create(user: user, post: post)
+  end
+end

@@ -23,4 +23,5 @@ br
   .row.justify-content-center
     = link_to "アカウントを削除する", user_path(current_user), method: :delete, class: "btn btn-outline-primary btn-sm",
                 id: "delete_user_link", data: { confirm: "アカウントを削除してもよろしいですか？?" }
-= render "follows/follow_button", user: @user
+.row.justify-content-center
+  = render "follows/follow_button", user: @user

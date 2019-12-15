@@ -3,8 +3,8 @@ header.navbar.fixed-top.navbar-inverse.bg-primary.py-0
     h1.text-white#logo = link_to "みやログ", root_path, class: "nav-link text-white"
     nav
       ul.nav.navbar-nav.navbar-right.flex-sm-row.my-2
-        li.nav-item.ml-3 = link_to "このサイトについて（未実装）", about_path, class: "text-white"
-        li.nav-item.ml-3 = link_to "問い合わせ(未実装)", "#", class: "text-white"
+        li.nav-item.ml-3 = link_to "このサイトについて", about_path, class: "text-white"
+        /li.nav-item.ml-3 = link_to "問い合わせ(未実装)", "#", class: "text-white"
         li.nav-item.ml-3.dropdown
           = link_to "#", 'data-toggle'=>"dropdown", class: "dropdown-toggle text-white"
             | アカウントサービス

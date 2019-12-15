@@ -80,7 +80,7 @@ Prefecture.create!(
                user: user,
                title: "title_test#{n+1}",
                prefecture: prefecture,
-               evaluation: 1,
+               evaluation: rand(1..5),
                content: "test_content#{n+1}",
                created_at: (100-n).minutes.ago)
 end

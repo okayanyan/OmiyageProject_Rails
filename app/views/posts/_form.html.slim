@@ -10,7 +10,7 @@
         td = f.file_field :image_key, accept: 'image/jpg,image/jpeg,image/png,image/gif'
       tr
         td = f.label :prefecture, "都道府県："
-        td = f.select :prefecture, @prefecture, class: 'form-control'
+        td = f.select :prefecture, options_for_select(@prefecture, 1), class: 'form-control'
       tr
         td = f.label :evaluation, "評価："
         td = f.select :evaluation, @evaluation, class: 'form-control'

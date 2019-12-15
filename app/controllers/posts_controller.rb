@@ -3,7 +3,9 @@ class PostsController < ApplicationController
   before_action -> {check_correct_user(Post)}, only:[:edit, :update, :destroy]
 
   def index
-    @post = Post.paginate(page: params[:page], per_page: 10)
+    @post = filltering_post
+    @prefecture = {' - ': nil}
+    Prefecture.all.each {|p| @prefecture[p.name]=p.id}
   end
 
   def show
@@ -13,7 +15,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @prefecture = Hash.new()
+    @prefecture = Hash.new
     Prefecture.all.each {|p| @prefecture[p.name]=p.id}
     @evaluation = [1, 2, 3, 4, 5]
     if has_create_post_info?
@@ -126,6 +128,24 @@ class PostsController < ApplicationController
     def has_create_post_info?
       !(session[:post_title].nil? && session[:post_prefecture].nil? && \
         session[:post_evaluation] && session[:post_content])
+    end
+
+    # function
+    #   ・function to select post
+    # used
+    #   ・filltering queryset
+    def filltering_post
+      post = Post.all
+      if !params[:word].nil? && params[:word].length > 0
+        post = post.where("title LIKE ?", "%#{params[:word]}%")
+      end
+      if !params[:prefecture].nil? && params[:prefecture].to_i > 0
+        post = post.where(prefecture_id: params[:prefecture])
+      end
+      if !params[:follow].nil? && params[:follow].to_i > 0
+        post = post.where(user_id: current_user.target_user.ids)
+      end
+      post = post.paginate(page: params[:page], per_page: 10)
     end
 
 end

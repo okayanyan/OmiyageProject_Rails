@@ -1,0 +1,21 @@
+.container-fluid
+  .row.justify-content-center
+    = form_tag(posts_path, method: :get) do |f|
+      table
+        tr
+          td = label_tag :word, '商品名で絞り込み'
+          td = text_field_tag :word, params['word']
+        tr
+          td = label_tag :prefecture, '都道府県名で絞り込み'
+          - prefecture = (!params[:prefecture].nil? && params[:prefecture].to_i > 0) ? params['prefecture'] : nil
+          td = select_tag :prefecture, options_for_select(@prefecture, prefecture)
+        tr
+          td = label_tag :follow, 'フォローしているユーザーで絞り込み'
+          - if !params[:follow].nil? && params[:follow].to_i > 0
+            td = check_box_tag :follow, 1, checked: 'checked'
+          - else
+            td = check_box_tag :follow
+        tr
+          td
+          td = submit_tag '絞り込み', name: nil
+br

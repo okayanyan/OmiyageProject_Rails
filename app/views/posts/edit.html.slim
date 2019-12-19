@@ -6,5 +6,8 @@
   .row.justify-content-center
     h2 お土産の編集
   br
-  br 
+  .row.justify-content-center#thumbnail-mini
+    - if !@post.image_key.model['image_key'].nil?
+      - image_tag = @post.image_key.to_s
+      = image_tag  image_tag, alt: "#{@post.title}の画像", title: "#{@post.title}", class: "img-thumbnail"
   = render  "posts/form" 

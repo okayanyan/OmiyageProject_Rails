@@ -1,7 +1,6 @@
 /* application */
 body {
-  font-family:　"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", 
-                "メイリオ", "Meiryo, Osaka", "ＭＳ Ｐゴシック", 
+  font-family:　"Noto Sans JP",　"メイリオ", "Meiryo, Osaka", "ＭＳ Ｐゴシック", 
                 "MS PGothic", sans-serif;
   padding-top: 130px;
   z-index: 0;
@@ -21,7 +20,7 @@ body {
 }
 
 #about {
-  background: no-repeat center url("../images/about.jpeg");
+  background: no-repeat center url("about.jpeg");
   background-size: cover;
   height: 300px;
   color: #FFF;

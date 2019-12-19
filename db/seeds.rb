@@ -11,10 +11,8 @@
   name  = "test#{n+1}"
   email = "test#{n+1}@test.com"
   password = "test"
-  image_key = "static/Miyalog/image/image_thumbnail_person.jpeg"
   User.create!(name:  name,
                email: email,
-               image_key: image_key,
                password: password,
                password_confirmation: password)
 end
@@ -80,6 +78,7 @@ Prefecture.create!(
                user: user,
                title: "title_test#{n+1}",
                prefecture: prefecture,
+               image_key: open("#{Rails.root}/db/fixtures/image_#{n % 5}.jpeg"),
                evaluation: rand(1..5),
                content: "test_content#{n+1}",
                created_at: (100-n).minutes.ago)

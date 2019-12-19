@@ -21,6 +21,8 @@ class User < ApplicationRecord
 
   before_save :downcase_email
 
+  mount_uploader :image_key, ImageUploader
+
   # function
   #   ・function to save remember token for cookie
   # used

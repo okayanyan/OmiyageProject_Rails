@@ -26,9 +26,10 @@
   
   .row.justify-content-center
     - if @post.image_key.model['image_key'].nil?
-      = image_tag  "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{ENV['AWS_POST_NO_IMAGE']}", alt: "#{@post.title}の画像", title: "#{@post.title}", class: "img-thumbnail" 
+      - image_tag = ENV['AWS_POST_NO_IMAGE']
     - else
-      = image_tag  @post.image_key.to_s, alt: "#{@post.title}の画像", title: "#{@post.title}", class: "img-thumbnail" 
+      - image_tag = @post.image_key.to_s
+    = image_tag  image_tag, alt: "#{@post.title}の画像", title: "#{@post.title}", class: "img-thumbnail" 
   .star.row.justify-content-center.m-1
     - 5.times do |s|
       - if @post.evaluation >= (s+1)

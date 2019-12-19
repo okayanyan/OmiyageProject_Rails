@@ -4,4 +4,10 @@
   .row.justify-content-center.mx-0
     h3 アカウント情報の変更
   br
+  .row.justify-content-center
+    section
+      - if !@user.image_key.model['image_key'].nil?
+        - image_tag = @user.image_key.to_s
+        = image_tag image_tag, alt: "#{@user.name}の画像", \
+              title: "#{@user.name}", class: "img-thumbnail", id: "person-thumbnail"
   = render  "users/form" 

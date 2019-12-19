@@ -29,7 +29,7 @@ describe 'UserEdit', type: :feature do
 
         expect(current_path).to eq edit_user_path(user)
         expect(page).to have_selector('#error_explanation')
-        expect(page).to have_field 'Name', with: user.name
+        expect(page).to have_field '名前：', with: user.name
       end
     end
 

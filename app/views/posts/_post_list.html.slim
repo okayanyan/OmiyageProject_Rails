@@ -5,9 +5,10 @@
         h3.text-center.m-1
           = link_to p.title,  post_path(p), class: ""
         - if p.image_key.model['image_key'].nil?
-          = image_tag  "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{ENV['AWS_POST_NO_IMAGE']}", alt: "#{p.title}の画像", title: "#{p.title}", class: "img-thumbnail" 
+          - image_tag = ENV['AWS_POST_NO_IMAGE']
         - else
-          = image_tag  p.image_key.to_s, alt: "#{p.title}の画像", title: "#{p.title}", class: "img-thumbnail" 
+          - image_tag = p.image_key.to_s
+        = image_tag  image_tag, alt: "#{p.title}の画像", title: "#{p.title}", class: "img-thumbnail" 
         .star.row.justify-content-center.m-1
           - 5.times do |s|
             - if p.evaluation >= (s+1)

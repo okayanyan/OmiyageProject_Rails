@@ -3,16 +3,19 @@
     = render 'shared/error_messages'
     table
       tr
-        td = f.label :name
+        td = f.label :name, "名前："
         td = f.text_field :name, class: 'form-control'
       tr
-        td = f.label :email
+        td = f.label :email, "メールアドレス："
         td = f.email_field :email, class: 'form-control'
       tr
-        td = f.label :Password
+        td = f.label :image_key, "画像ファイル："
+        td = f.file_field :image_key, accept: 'image/jpg,image/jpeg,image/png,image/gif'
+      tr
+        td = f.label :password, "パスワード："
         td = f.password_field :password, class: 'form-control'
       tr
-        td = f.label :password_confirmation, "Password(confirmation)"
+        td = f.label :password_confirmation, "パスワード（確認）"
         td = f.password_field :password_confirmation, class: 'form-control'
       tr
         td

@@ -54,6 +54,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # function
+  #   ・update operation
+  # used
+  #   ・update user information
   def update
     @user = User.find_by(id: params[:id])
     if @user.update_attributes(user_params)
@@ -65,6 +69,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # function
+  #   ・delete operation
+  # used
+  #   delete user information
   def destroy
     user = current_user
     if logged_in?
@@ -95,21 +103,7 @@ class UsersController < ApplicationController
     # used
     #   ・prevent malicious request
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
-
-    # function
-    #   ・function to save image key
-    # used
-    #   ・profile image
-    def set_image_key(key=nil)
-      if key
-        # TODO
-        #   アップロード処理を後で実装
-      else
-        @user.image_key = "static/Miyalog/image/image_thumbnail_person.jpeg"
-      end
-
+      params.require(:user).permit(:name, :email, :image_key, :password, :password_confirmation)
     end
 
     # function

@@ -5,8 +5,12 @@ section
           .row.my-2.mx-0
             aside.col-4
               section
-                = image_tag "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com/#{@user.image_key}", alt: "#{@user.name}の画像", \
-                        title: "#{@user.name}", class: "img-thumbnail", id: "person-thumbnail-mini"
+                - if l.image_key.model['image_key'].nil?
+                  - image_tag = ENV['AWS_USER_NO_IMAGE']
+                - else
+                  - image_tag = l.image_key.to_s
+                = image_tag image_tag, alt: "#{l.name}の画像", \
+                        title: "#{l.name}", class: "img-thumbnail", id: "person-thumbnail_mini"
             
             aside.col-8.mx-0
               section.my-0.text-left

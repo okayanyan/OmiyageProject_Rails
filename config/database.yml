@@ -51,5 +51,3 @@ test:
 production:
   <<: *default
   database: <%= ENV.fetch('MYSQL_DATABASE') { 'app_db' } %>_production
-  username: app
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>

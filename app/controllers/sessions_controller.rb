@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     # get user information
     user = User.find_by(email: params[:session][:email].downcase)
     # check existance of user and password authentication.
-    if user && user.authenticate(params[:session][:password])
+    if user && user.activated? && user.authenticate(params[:session][:password])
       flash[:success] = "ログインに成功しました。"
       # save session
       log_in(user)

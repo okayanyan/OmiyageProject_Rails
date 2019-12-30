@@ -59,6 +59,10 @@ gem 'rmagick', '~> 4.0'
 # Use for nginx
 gem 'unicorn', '~> 5.5'
 
+# User mailer
+gem 'mailcatcher'
+gem "letter_opener_web"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

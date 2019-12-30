@@ -1,0 +1,9 @@
+| みやログのアカウント仮登録
+= "\n"
+= "ようこそ、#{@mail_to_user.name}さん！"
+| 仮登録ありがとうございます。下記のリンクをクリックして、登録を完了させてください。
+| 有効期限は、 "#{@time_limit.strftime("%Y年%m月%d日 %H:%M")}"までです。
+
+= link_to "アカウントを有効化する", edit_account_activation_url(@mail_to_user.activation_token,
+                                                              email: @mail_to_user.email),
+                                target: "_blank"

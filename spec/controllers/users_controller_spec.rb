@@ -24,7 +24,7 @@ RSpec.describe UsersController, type: :controller do
           post :create, params: {user: {name: "test_user", email: "test@test.com", 
                               password: "password", password_confirmation: "password"}}
           user = User.find_by(email: "test@test.com")
-          expect(response).to redirect_to user_path(user)
+          expect(response).to redirect_to root_path
         end
       end
     end

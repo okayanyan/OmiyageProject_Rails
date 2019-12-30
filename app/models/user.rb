@@ -11,16 +11,18 @@ class User < ApplicationRecord
   has_many :favorite, dependent: :destroy
   has_many :favorite_post, through: :favorite, source: :post
 
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
   validates :name, presence: true, length: {maximum: 20}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
-                    format: { with: VALID_EMAIL_REGEX }
+                    format: { with: VALID_EMAIL_REGEX },
+                    uniqueness: true
   has_secure_password
   validates :password, presence: true, length: {maximum: 20}, allow_nil: true
 
+  before_create :prepare_activate
   before_save :downcase_email
-
+  
   mount_uploader :image_key, ImageUploader
 
   # function
@@ -28,8 +30,8 @@ class User < ApplicationRecord
   # used
   #   ・save login information in cookie
   def remember_in_db
-    create_remember_token
-    update_attribute(:remember_digest, self.remember_token)
+    self.remember_token = create_token
+    update_attribute(:remember_digest, digest(self.remember_token))
   end
 
   # function
@@ -44,9 +46,33 @@ class User < ApplicationRecord
   #   ・function to authenticated by cookie
   # used
   #    。login by cookie
-  def authenticated?(remember_token)
-    return false if self.remember_digest.nil?
-    BCrypt::Password.new(self.remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    return false if attribute == :activation and Time.zone.now > self.activated_at.since(2.hours)
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  # function
+  #   ・function to authenticate new user
+  # used
+  #    ・create new user
+  def prepare_activate
+    if !self.activated?
+      self.activation_token = create_token
+      self.activation_digest = digest(self.activation_token)
+      self.activated_at = Time.zone.now
+    end
+  end
+
+  # function
+  #   ・function to authenticate new user
+  # used
+  #    ・create new user
+  def activate
+    update_attribute(:activated, true)
+    update_attribute(:activation_digest, nil)
+    update_attribute(:activated_at, Time.zone.now)
   end
 
   # function
@@ -107,11 +133,22 @@ class User < ApplicationRecord
     end
 
     # function
-    #   ・function to create remember token for cookie
+    #   ・function to digest
+    # used
+    #   ・make it be secured
+    def digest(string)
+      cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                BCrypt::Engine.cost
+      BCrypt::Password.create(string, cost: cost)
+    end
+
+    # function
+    #   ・function to create token
     # used
     #   ・save login information in cookie
-    def create_remember_token
-      self.remember_token = SecureRandom.urlsafe_base64
+    #   ・save activation token
+    def create_token
+      SecureRandom.urlsafe_base64
     end
 
 end

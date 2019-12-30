@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   resources :posts
   resources :follows, only: [:create, :destroy]
   resources :favorites, only: [:index, :create, :destroy]
+  resources :account_activations, only: [:edit]
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

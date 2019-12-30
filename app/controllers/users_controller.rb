@@ -32,10 +32,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "ユーザーが作成されました。"
-      #   save in session 
-      log_in @user
-      redirect_to @user
+      UserMailer.account_activation(@user).deliver_now
+      flash[:success] = "ユーザーの仮登録が完了しました。\nメールを確認して、登録を完了させてください。"
+      #   save in session
+      redirect_to root_path
     else
       set_create_user_info
       set_error_info(@user)

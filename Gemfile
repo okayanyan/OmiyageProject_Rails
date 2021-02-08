@@ -52,7 +52,7 @@ gem 'jquery-rails', '~> 4.3'
 gem 'solargraph', '~> 0.38'
 
 # Use AWS s3
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 gem 'fog', '~> 2.2'
 gem 'rmagick', '~> 4.0'
 
